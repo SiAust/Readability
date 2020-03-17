@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Readability {
@@ -8,10 +10,16 @@ public class Readability {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String text = sc.nextLine();
-        if (text.length() <= 100) {
-            System.out.println(EASY);
-        } else {
-            System.out.println(HARD);
+
+        String pattern = "[!?.]\\s?"; // match one of [range] characters, zero or one whitespace character
+
+        String[] sentences = text.split(pattern); // split input into sentences
+
+        int wordCount = 0;
+        for (int i = 0; i < sentences.length; i++) {
+            String[] words = sentences[i].split("\\s+,?"); // split sentences into words
+            wordCount += words.length; // count & store number of words
         }
+        System.out.println(wordCount / sentences.length <= 10 ? EASY : HARD);
     }
 }
